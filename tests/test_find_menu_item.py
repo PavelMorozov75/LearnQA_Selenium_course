@@ -24,37 +24,18 @@ def test_find_menu_item(driver):
     assert WebDriverWait(driver, 15).until((expected_conditions.presence_of_element_located((By.XPATH,
                                                                                              FIRST_MENU)))),\
         f"незалогин"
-
     menu_items = driver.find_elements(By.CSS_SELECTOR, MENU_ICON)
-    print(len(menu_items))
-    for item in menu_items:
-        item.click()
-        time.sleep(3)
+    count_menu_items = len(menu_items)
+    for i in range(1, count_menu_items+1):
+        driver.implicitly_wait(1)
+        item = driver.find_element(By.XPATH, f"//ul[@id='box-apps-menu']/li[{i}]/a/span[2]").click()
+        assert driver.find_element(By.TAG_NAME, "h1"), f"у подпункта {item.text} нет заголовка h1"
         sub_menu_items = driver.find_elements(By.CSS_SELECTOR, SUBMENU_LIST)
-        if len(sub_menu_items) > 0:
-            for subitem in sub_menu_items:
-                subitem.click()
-                time.sleep(2)
-                assert driver.find_element(By.TAG_NAME, "h1"), f"у подпункта {subitem.text} нет заголовка h1"
-        else:
-            assert driver.find_element(By.TAG_NAME, "h1"), f"у пункта {item.text} нет заголовка h1"
-
-
-
-    '''while True:
-        try:
-            driver.find_element(By.CSS_SELECTOR, MENU_LIST).click()
-            time.sleep(2)
-            while True:
-                try:
-                    driver.find_element(By.CSS_SELECTOR, SUBMENU_LIST).click()
-                    time.sleep(2)
-                    assert driver.find_element(By.TAG_NAME, "h1")
-                    break
-                except:
-                    break
-        except: break'''
-
+        count_submenu_items = len(sub_menu_items)
+        for j in range(1, count_submenu_items+1):
+            driver.implicitly_wait(1)
+            subitem = driver.find_element(By.XPATH, f"//ul[@id='box-apps-menu']/li[{i}]/ul/li[{j}]").click()
+            assert driver.find_element(By.TAG_NAME, "h1"), f"у подпункта {subitem.text} нет заголовка h1"
 
 
 
