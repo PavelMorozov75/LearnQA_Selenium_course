@@ -13,7 +13,8 @@ countries_list = 'form[name=countries_form] td:nth-child(5) a'
 zones_list = 'form[name=countries_form] td:nth-child(6) '
 login = 'admin'
 password = 'admin'
-zones_level2 = 'td input[name*=name][type=hidden]'
+# zones_level2 = 'td input[name*=name][type=hidden]'
+zones_level22 = '#table-zones td:nth-child(3)'
 
 def test_sort_countries(driver):
     driver.get(base_url)
@@ -50,10 +51,11 @@ def test_sort_zones(driver):
     for country in countries_with_many_zones_text:
         driver.find_element(By.XPATH, f"//a[text()='{country}']").click()
         time.sleep(2)
-        zones = driver.find_elements(By.CSS_SELECTOR, zones_level2)
+        zones = driver.find_elements(By.CSS_SELECTOR, zones_level22)
+        zones = zones[:len(zones)-1]
         zone_list = []
         for zone in zones:
-            zone_list.append(zone.get_attribute('value'))
+            zone_list.append(zone.text)
         print(zone_list)
         zone_list_template = deepcopy(zone_list)
         zone_list_template.sort()
