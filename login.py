@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -62,6 +64,10 @@ driver.find_element(By.CSS_SELECTOR, DESIRED_PASSWORD).send_keys(password)
 driver.find_element(By.CSS_SELECTOR, BUTTON_LOGIN).click()
 WebDriverWait(driver,2).until(expected_conditions.visibility_of_element_located((By.XPATH, LOGGED_AS)))
 driver.find_element(By.XPATH, LOGOUT).click()
-WebDriverWait(driver,2).until(expected_conditions.visibility_of_element_located((By.XPATH, LOGOUT_SUCCESS)))
+# WebDriverWait(driver,2).until(expected_conditions.visibility_of_element_located((By.XPATH, LOGOUT_SUCCESS)))
+wait = WebDriverWait(driver, 1).until(lambda d: d.find_element(By.XPATH, LOGOUT_SUCCESS))
+time.sleep(3)
+driver.quit()
+
 
 
