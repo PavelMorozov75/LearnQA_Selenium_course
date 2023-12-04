@@ -1,12 +1,14 @@
 import time
-
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from faker import Faker
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import random
+from selenium.webdriver.firefox.service import Service
 
 base_url = 'http://localhost/litecart/en/login'
 LOGIN_NEW_CUSTOMER_UP = "//a[contains(text(), 'New customers click here')]"
@@ -21,14 +23,20 @@ PHONE = "input[name=phone]"
 DESIRED_PASSWORD = "input[name=password]"
 CONFIRMED_PASSWORD = "input[name=confirmed_password]"
 BUTTON_CTEATE_ACCOUNT = "button[name=create_account]"
-SELECT = "select[name=country_code]"
+# SELECT = "select[name=country_code]"
 ACCOUNT_CREATED = "//div[contains(text(), ' Your customer account has been created.')]"
 LOGOUT = "//a[contains(text(), 'Logout')]"
 LOGOUT_SUCCESS = "//div[contains(text(), ' You are now logged out.')]"
 BUTTON_LOGIN = "button[name=login]"
 LOGGED_AS = "//div[contains(text(), 'You are now logged in as')]"
+# SELECT1 = "#select2-country_code-il-container"
+SELECT2 = "span.select2-selection__arrow"
+INPUT_FIELD = "input.select2-search__field"
 
-driver = webdriver.Chrome()
+
+# driver = webdriver.Chrome()
+# driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
 driver.get(base_url)
 WebDriverWait(driver,1).until(expected_conditions.element_to_be_clickable((By.XPATH,
                                                                                         LOGIN_NEW_CUSTOMER_UP))).click()
@@ -49,8 +57,12 @@ driver.find_element(By.CSS_SELECTOR, LAST_NAME).send_keys(last_name)
 driver.find_element(By.CSS_SELECTOR, ADDRESS1).send_keys(address)
 driver.find_element(By.CSS_SELECTOR, POSTCODE).send_keys(postcode)
 driver.find_element(By.CSS_SELECTOR, CITY).send_keys(city)
-select = Select(driver.find_element(By.CSS_SELECTOR, SELECT))
-select.select_by_visible_text("United States")
+driver.find_element(By.CSS_SELECTOR, SELECT2).click()
+field = WebDriverWait(driver,3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, INPUT_FIELD)))
+field.send_keys("United States", Keys.RETURN)
+time.sleep(1)
+# select = Select(driver.find_element(By.CSS_SELECTOR, SELECT))
+# select.select_by_visible_text("United States")
 driver.find_element(By.CSS_SELECTOR, EMAIL).send_keys(email)
 driver.find_element(By.CSS_SELECTOR, PHONE).send_keys(phone)
 driver.find_element(By.CSS_SELECTOR, DESIRED_PASSWORD).send_keys(password)
