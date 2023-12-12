@@ -29,7 +29,7 @@ time.sleep(1)
 attempt = 1
 while attempt <= 3:
    driver.find_elements(By.CSS_SELECTOR, ITEMS)[0].click()
-   counter_elm = driver.find_element(By.CSS_SELECTOR, COUNTER)
+   # counter_elm = driver.find_element(By.CSS_SELECTOR, COUNTER)
    cont_products_before = int(driver.find_element(By.CSS_SELECTOR, COUNTER).get_attribute('textContent'))
    # print(cont_products_before)
    WebDriverWait(driver,1).until(lambda d: d.find_element(By.XPATH, HOME))
