@@ -1,7 +1,9 @@
 import pytest
 from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
+from application.application import Application
 
+'''
 def pytest_addoption(parser):
     parser.addoption('--browser_name', action='store', default="chrome",
                      help="Choose browser: chrome or firefox")
@@ -16,6 +18,7 @@ def driver(request):
         browser = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
+
     yield browser
     print("\nquit browser..")
     browser.quit()
@@ -23,4 +26,10 @@ def driver(request):
 @pytest.fixture()
 def browser_name(request):
     return request.config.getoption("--browser_name")
+'''
 
+@pytest.fixture
+def app(request):
+    app = Application()
+    request.addfinalizer(app.quit)
+    return app
