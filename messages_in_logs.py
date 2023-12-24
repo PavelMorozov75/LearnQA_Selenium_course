@@ -43,8 +43,8 @@ for i in range(5, products_count + 4):
     elm = driver.find_elements(By.XPATH, f"//table [@class='dataTable']/tbody/tr[{i}]/td[3]/a")
     if len(elm) > 0:
         elm[0].click()
-        if len(driver.get_log('browser')) > 0:
-            print(f"При клике на товар {i-5}  сообщения в логах браузера {driver.get_log('browser')}")
+        for j in driver.get_log('browser'):
+            print(f"При клике на товар {i-5}  сообщения в логах браузера {j}")
         driver.back()
 driver.quit()
 
