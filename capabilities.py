@@ -21,3 +21,10 @@ browser_driver = webdriver.Chrome(desired_capabilities=caps)
 print(browser_driver.capabilities)
 
 browser_driver.quit()
+
+
+#Новая рабочая схема для selenium выше 4.10
+options = webdriver.ChromeOptions()
+options.set_capability("platformName", "windows")
+browser_driver = webdriver.Chrome(options=options)
+print(browser_driver.capabilities)
