@@ -17,10 +17,10 @@ class ProductPage(MainPage):
         self.driver = driver
         self.weit = WebDriverWait(driver, 2)'''
 
-    '''def __init__(self, driver):
-        super().__init__(self)
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 2)'''
+    def __init__(self, driver):
+        super().__init__(driver)
+        # self.driver = driver
+        self.wait = WebDriverWait(driver, 2)
 
     def weit_until_page_load(self):
         WebDriverWait(self.driver, 2).until(lambda d: d.find_element(*ProductPage.HOME))

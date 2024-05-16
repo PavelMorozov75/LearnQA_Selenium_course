@@ -3,7 +3,7 @@ from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
 from application.application import Application
 
-'''
+
 def pytest_addoption(parser):
     parser.addoption('--browser_name', action='store', default="chrome",
                      help="Choose browser: chrome or firefox")
@@ -26,7 +26,7 @@ def driver(request):
 @pytest.fixture()
 def browser_name(request):
     return request.config.getoption("--browser_name")
-'''
+
 
 @pytest.fixture
 def app(request):

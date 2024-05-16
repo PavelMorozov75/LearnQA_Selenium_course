@@ -52,7 +52,7 @@ def test_sort_zones(driver):
         driver.find_element(By.XPATH, f"//a[text()='{country}']").click()
         time.sleep(2)
         zones = driver.find_elements(By.CSS_SELECTOR, zones_level22)
-        zones = zones[:len(zones)-1]
+        zones = zones[:len(zones)-1]# образали послед элемент
         zone_list = []
         for zone in zones:
             zone_list.append(zone.text)
