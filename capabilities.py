@@ -30,13 +30,23 @@ caps["download.default_directory"] = "/path/to/download/directory"
 driver = webdriver.Chrome(desired_capabilities=caps)
 print(driver.capabilities)
 driver.quit()
+#_____________________________________________________________
+
+caps = {'chromeOptions': {'args': ['--start-fullscreen']}}
+
+browser_driver = webdriver.Chrome(desired_capabilities=caps)
+print(browser_driver.capabilities)
+browser_driver.quit()
+#___________________________________________________________________
 
 #Новая рабочая схема для selenium выше 4.10
 options = webdriver.ChromeOptions()
 options.set_capability("platformName", "windows")
 options.set_capability('unexpectedAlertBehaviour', 'dismiss')
-
-
 browser_driver = webdriver.Chrome(options=options)
 print(browser_driver.capabilities)
 browser_driver.quit()
+#_____________________________________________________________
+
+from hamcrest import assert_that, is_
+assert_that(0, is_(0))
